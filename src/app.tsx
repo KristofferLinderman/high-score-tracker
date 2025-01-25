@@ -12,15 +12,19 @@ import {
 } from "@northlight/ui";
 import { ExcelDropzone, ExcelRow } from "./excel-dropzone.jsx";
 import { getUsersFromScores } from "./utils/getUsersFromScores.js";
-import { type Score, scores as initialScore } from "./scores.js";
+import { type Score, scores as initialScore, scores } from "./scores.js";
 import { type User, users as initialUsers } from "./users.js";
 import { sortUsersDesc } from "./utils/sortUsers.js";
+import { ListItem } from "./components/listItem.js";
+import { sortScoresDesc } from "./utils/sortScores.js";
+import { getUserScores } from "./utils/getUserScores.js";
 
 export default function App() {
   const [scores, setScores] = useState<Score[]>(initialScore);
   const [users, setUsers] = useState<User[]>(
     sortUsersDesc(getUsersFromScores(initialUsers, scores))
   );
+  const [userDetails, setUserDetails] = useState<number[]>();
 
   useEffect(() => {
     setUsers(sortUsersDesc(getUsersFromScores(users, scores)));
@@ -32,6 +36,11 @@ export default function App() {
 
   const handleSubmit = (data: { name: string; score: number }) => {
     setScores([...scores, data]);
+  };
+
+  const onListItemClick = (user: User) => {
+    const sortedUserScores = sortScoresDesc(getUserScores(user, scores));
+    setUserDetails(sortedUserScores);
   };
 
   return (
@@ -46,12 +55,19 @@ export default function App() {
           <Box>
             <H2>Current Ranking</H2>
             {users.map((user) => (
-              <Box display={"flex"} gap={2} key={user._id}>
-                <span>{user.name}</span>
-                <span>{user.topScore}</span>
-              </Box>
+              <ListItem key={user._id} user={user} onClick={onListItemClick} />
             ))}
           </Box>
+          {userDetails && (
+            <Box>
+              <H2>User Details</H2>
+              <Box display="grid">
+                {userDetails.map((score, index) => (
+                  <span key={index}>{score}</span>
+                ))}
+              </Box>
+            </Box>
+          )}
           <Box>
             <H2>Add</H2>
             <Form
