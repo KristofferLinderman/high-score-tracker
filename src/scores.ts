@@ -1,4 +1,22 @@
-export default [
+export type Score = ScoreWithId | ScoreWithName;
+
+type ScoreWithId = {
+  score: number;
+  userId: number;
+  name?: string;
+};
+
+type ScoreWithName = {
+  score: number;
+  name: string;
+  userId?: number;
+};
+
+export const isScoreWithId = (score: Score): score is ScoreWithId => {
+  return (score as ScoreWithId).userId !== undefined;
+};
+
+export const scores: Score[] = [
   { userId: 1, score: 474 },
   { userId: 2, score: 592 },
   { userId: 1, score: 30 },
@@ -20,4 +38,4 @@ export default [
   { userId: 1, score: 983 },
   { userId: 1, score: 163 },
   { userId: 3, score: 701 },
-]
+];
