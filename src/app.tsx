@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Box,
@@ -9,7 +9,6 @@ import {
   Form,
   TextField,
   Button,
-  P,
 } from "@northlight/ui";
 import { ExcelDropzone, ExcelRow } from "./excel-dropzone.jsx";
 import { getUsersFromScores } from "./utils/getUsersFromScores.js";
@@ -23,9 +22,16 @@ export default function App() {
     sortUsersDesc(getUsersFromScores(initialUsers, scores))
   );
 
+  useEffect(() => {
+    setUsers(sortUsersDesc(getUsersFromScores(users, scores)));
+  }, [scores]);
+
   const handleSheetData = (data: ExcelRow[]) => {
-    // replace this log with actual handling of the data
-    console.log(data);
+    setScores([...scores, ...data]);
+  };
+
+  const handleSubmit = (data: { name: string; score: number }) => {
+    setScores([...scores, data]);
   };
 
   return (
@@ -45,6 +51,17 @@ export default function App() {
                 <span>{user.topScore}</span>
               </Box>
             ))}
+          </Box>
+          <Box>
+            <H2>Add</H2>
+            <Form
+              initialValues={{ name: "", score: 0 }}
+              onSubmit={handleSubmit}
+            >
+              <TextField name="name" label="Name:" type="text" isRequired />
+              <TextField name="score" label="Score:" type="number" isRequired />
+              <Button type="submit">Submit</Button>
+            </Form>
           </Box>
         </VStack>
       </HStack>
