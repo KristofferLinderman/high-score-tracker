@@ -11,7 +11,11 @@ type ListItemProps = {
 export const RankListItem = ({ user, onClick, rankIndex }: ListItemProps) => {
   const { name, topScore } = user;
   return (
-    <Card onClick={() => onClick(user)} cursor="pointer">
+    <Card
+      onClick={() => onClick(user)}
+      cursor="pointer"
+      _hover={{ backgroundColor: "#eee" }}
+    >
       <CardBody>
         <Box display="flex" gap={1}>
           <span>#{rankIndex}</span>-<span>{name}</span>
