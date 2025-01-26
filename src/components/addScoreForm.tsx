@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { H2, Form, TextField, UseFormReturn } from "@northlight/ui";
+import { H2, Form, TextField } from "@northlight/ui";
 import React from "react";
 import { Score } from "../scores";
 
