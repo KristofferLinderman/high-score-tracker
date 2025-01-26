@@ -1,7 +1,14 @@
 import { Score } from "../scores";
 import { User } from "../users";
 
-export const getUserScores = (user: User, scores: Score[]) => {
+/**
+ * Returns all scores for the specified user, based on user name or user Id
+ *
+ * @param {User} user The user whose scores we want
+ * @param {Score[]} scores The array of scores to search in
+ * @returns {number[]} An array of numbers representing the scores associated with the user.
+ */
+export const getUserScores = (user: User, scores: Score[]): number[] => {
   const userScores: number[] = [];
 
   scores.forEach((scoreElem) => {
