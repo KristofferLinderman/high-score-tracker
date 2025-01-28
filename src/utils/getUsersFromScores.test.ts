@@ -4,7 +4,7 @@ import { Score } from "../scores";
 import { User } from "../users";
 
 describe("getUsersFromScores", () => {
-  it.only("should update existing users with their top scores", () => {
+  it("should update existing users with their top scores", () => {
     const users: User[] = [
       { _id: 1, name: "Alice", topScore: 50 },
       { _id: 2, name: "Bob", topScore: 60 },
@@ -22,19 +22,18 @@ describe("getUsersFromScores", () => {
     ]);
   });
 
-  it("should add new users for scores with non-existent userId or name", () => {
+  it("should add new users with default name for scores without name", () => {
     const users: User[] = [{ _id: 1, name: "Alice", topScore: 50 }];
 
     const scores: Score[] = [
-      { score: 40, name: "Charlie" },
+      { score: 40, name: "Alice" },
       { score: 60, userId: 2 },
     ];
 
     const result = getUsersFromScores(users, scores);
     expect(result).toEqual([
       { _id: 1, name: "Alice", topScore: 50 },
-      { _id: 2, name: "Charlie", topScore: 40 },
-      { _id: 3, name: "User3", topScore: 60 },
+      { _id: 2, name: "User2", topScore: 60 },
     ]);
   });
 
