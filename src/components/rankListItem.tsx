@@ -14,6 +14,7 @@ export const RankListItem = ({ user, onClick, rankIndex }: ListItemProps) => {
     <Card
       onClick={() => onClick(user)}
       cursor="pointer"
+      width="100%"
       _hover={{ backgroundColor: "#eee" }}
     >
       <CardBody>

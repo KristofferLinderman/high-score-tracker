@@ -1,4 +1,4 @@
-import { H2 } from "@northlight/ui";
+import { H2, VStack } from "@northlight/ui";
 import React from "react";
 import { RankListItem } from "./rankListItem";
 import { User } from "../users";
@@ -10,16 +10,18 @@ type RankingListProps = {
 
 export const RankingList = ({ onClick, users }: RankingListProps) => {
   return (
-    <>
+    <VStack>
       <H2>Current Ranking</H2>
-      {users.map((user, index) => (
-        <RankListItem
-          key={user._id}
-          rankIndex={++index}
-          user={user}
-          onClick={onClick}
-        />
-      ))}
-    </>
+      <VStack gap={4}>
+        {users.map((user, index) => (
+          <RankListItem
+            key={user._id}
+            rankIndex={++index}
+            user={user}
+            onClick={onClick}
+          />
+        ))}
+      </VStack>
+    </VStack>
   );
 };

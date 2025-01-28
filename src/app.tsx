@@ -54,10 +54,8 @@ export default function App() {
             onSheetDrop={handleSheetData}
             label="Import excel file here"
           />
-          <VStack align="left">
-            <RankingList users={users} onClick={onListItemClick} />
-            <AddScoreForm onSubmit={handleSubmit} />
-          </VStack>
+          <RankingList users={users} onClick={onListItemClick} />
+          <AddScoreForm onSubmit={handleSubmit} />
         </HStack>
       </Container>
     </>
